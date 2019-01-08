@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>はじめてのVue.js</title>
+	<script src="https://unpkg.com/vue@2.5.17"></script>
+</head>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+
+<!--
+親から子へのデータ伝播
+<div id="app">
+	<item-desc v-bind:item-name="myItem"></item-desc>
+</div>
+
+<script>
+	Vue.component('item-desc', {
+		props: {
+			itemName: {
+				type: String
+			}
+		},
+		template: '<p>{{ itemName }}は便利です。</p>'
+	})
+
+	new Vue({
+		el: '#app',
+		data: {
+			myItem: 'pen'
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="fruits-componet">
+	<ol>
+		<fruits-item-name v-for="fruit in fruitsItems" :key="fruit.name" :fruits-item="fruit"></fruits-item-name>
+	</ol>
+</div>
+
+<script>
+	Vue.component('fruits-item-name', {
+		props: {
+			fruitsItem: {
+				type: Object,
+				required: true
+			}
+		},
+		template: '<li>{{fruitsItem.name}}</li>'
+	})
+
+	new Vue({
+		el: '#fruits-componet',
+		data: {
+			fruitsItems: [
+				{name: '梨'},
+				{name: '苺'}
+			]
+		}
+	})
+</script>
+-->
+
+
+子から親への通信
+<div id="fruits-counter">
+	<div v-for="fruit in fruits">
+		{{fruit.name}}: <counter-button v-on:increment="incrementCartStatus()"></counter-button>
+	</div>
+	<p>合計: {{total}}</p>
+</div>
+
+<script>
+	// イベントのlisten $on(eventName)
+	// イベントのtrigger $emit(eventName)
+
+	// 子コンポーネントのカウンターボタン
+	var counterButton = Vue.extend({
+		template: '<span>{{counter}}個 <button v-on:click="addToCart">追加</button></span>',
+		data: function () {
+			return {
+				counter: 0
+			}
+		},
+		methods: {
+			addToCart: function () {
+				this.counter += 1
+				this.$emit('increment') // incrementカスタムイベントの発火
+			}
+		},
+	})
+
+	new Vue({
+		el: '#fruits-counter',
+		components: {
+			'counter-button': counterButton
+		},
+		data: {
+			total: 0,
+			fruits: [
+				{name: '梨'},
+				{name: '苺'}
+			]
+		},
+		methods: {
+			incrementCartStatus: function () {
+				this.total += 1
+			}
+		}
+	})
+
+</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>はじめてのVue.js</title>
+</head>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+<script src="https://unpkg.com/vue-router@3.0.1"></script>
+
+<script type="text/x-template" id="user-list">
+	<div>ユーザー一覧ページです。</div>
+</script>
+
+<div id="app">
+	<router-link to="/top">トップページ</router-link>
+	<router-link to="/users?redirect=true">ユーザー一覧ページ</router-link>
+	<router-link :to="{name: 'user', params: {userId: 123, pass: 'hogehoge'}}">ユーザー詳細</router-link>
+	<router-link to="/user/add">ユーザー追加ページ</router-link>
+	<router-view></router-view>
+</div>
+
+<script>
+	var UserList = {
+		template: '#user-list',
+		data: function () {
+			console.log(1)
+			return {
+				users: function () { return [] },
+				error: null
+			}
+		},
+		beforeRouteEnter: function (to, from, next) {
+/*
+			getUsers((function (err, users) {
+				if(err){
+					this.error - err.toString()
+				} else {
+					next(function (vm) {
+						vm.users = users
+					})
+				}
+
+			}).bind(this))
+*/
+		}
+	}
+
+	var router = new VueRouter({
+		routes: [
+			{
+				path: '/top',
+				component: {
+					template: '<div>トップページです。</div>'
+				}
+			},
+			{
+				path: '/users',
+				component: UserList,
+/*
+				beforeEnter: function (to, from, next) {
+					if(to.query.redirect === 'true'){
+						next('/top')
+					}else{
+						next();
+					}
+				}
+*/
+			},
+			{
+				path: '/user/:userId/:pass',
+				name: 'user',
+				component: {
+					template: '<div>ユーザーIDは{{$route.params.userId}}です。{{$route.params.pass}}</div>'
+				}
+			},
+			{
+				path: '/user/add',
+				component: {
+					template: '<div>ユーザー追加ページです。</div>'
+				}
+			}
+		]
+	})
+
+/*
+	//4.3.4を参考にする
+	router.beforeEach(function (to, from, next) {
+		// ユーザー一覧ページへアクセスした時に/topへリダイレクト
+		if(to.path === '/users') {
+			next('/top')
+		}else{
+			// 引数なしでnextを呼び出すと通常通りの遷移が行われる（nextを呼び出さないと通常処理が行われないので注意）
+			next();
+		}
+	})
+*/
+
+	var app = new Vue({
+		router: router
+	}).$mount('#app')
+
+</script>

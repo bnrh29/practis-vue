@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--
+<div id="app">
+	{{ message }}
+</div>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue!'
+		}
+	})
+</script>
+
+
+<div id="app-2">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds to see my dynamically bound title!
+  </span>
+</div>
+<script type="text/javascript">
+	var app2 = new Vue({
+		el: '#app-2',
+		data: {
+			message: 'You loaded this page on ' + new Date().toLocaleString()
+		}
+	})
+</script>
+
+
+<div id="app-3">
+	<span v-if="seen">now you see me</span>
+</div>
+<script type="text/javascript">
+	var app3 = new Vue({
+		el: '#app-3',
+		data: {
+			seen: true
+		}
+	})
+</script>
+
+
+<div id="app-4">
+	<ol>
+		<li v-for="todo in todos">
+			{{todo.text}}
+		</li>
+	</ol>
+</div>
+<script type="text/javascript">
+	var app4 = new Vue({
+		el: '#app-4',
+		data: {
+			todos: [
+				{text: 'Learn JavaScript'},
+				{text: 'Learn Vue'},
+				{text: 'Build Something awedsome'}
+			]
+		}
+	})
+</script>
+
+
+<div id="app-5">
+	<p>{{message}}</p>
+	<button v-on:click="reverseMessage">Reverse Message</button>
+</div>
+<script type="text/javascript">
+	var app5 = new Vue({
+		el: '#app-5',
+		data: {
+			message: 'Hello Vue.js'
+		},
+		methods: {
+			reverseMessage: function () {
+				console.log(this.message.split(''));
+				this.message = this.message.split('').reverse().join('');
+			}
+		}
+	})
+</script>
+
+
+<div id="app-6">
+	<p>{{message}}</p>
+	<input v-model="message">
+</div>
+<script type="text/javascript">
+	var app6 = new Vue({
+		el: '#app-6',
+		data: {
+			message: 'Hello Vue'
+		}
+	})
+</script>
+
+
+<div id="app-7">
+	<ol>
+		<todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+	</ol>
+</div>
+<script type="text/javascript">
+	Vue.component('todo-item', {
+		props: ['todo'],
+		template: '<li>{{todo.text}}</li>'
+	})
+	var app7 = new Vue({
+		el: '#app-7',
+		data: {
+			groceryList: [
+				{ id:0, text: 'Vegetables' },
+				{ id:1, text: 'Cheese' },
+				{ id:2, text: 'Whatever else humans are supposed to eat' },
+			]
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="app">
+	<p>{{ foo }}</p>
+	<button v-on:click="foo = 'baz'">Change it</button>
+</div>
+<script type="text/javascript">
+	var data = {a: 1}
+
+	var vm = new Vue({
+		data: data
+	})
+
+	console.log(data.a === vm.a)
+
+	vm.a = 2
+	console.log(data.a)
+
+	data.a = 3
+	console.log(vm.a)
+
+
+	var obj = {
+		foo: 'bar'
+	}
+
+	Object.freeze(obj)
+
+	new Vue({
+		el: '#app',
+		data: obj
+	})
+
+</script>
+-->
+
+
+<!--
+<div id="example"></div>
+<script type="text/javascript">
+	var data = {a: 1}
+	var vm = new Vue({
+		el: '#example',
+		data: data
+	})
+
+	console.log(vm.$data === data)
+	console.log(vm.$el === document.getElementById('example'))
+	vm.$watch('a', function (newValue, oldValue) {
+		console.log(newValue, oldValue)
+	})
+</script>
+-->
+
+
+<!--
+<script type="text/javascript">
+	new Vue({
+		data: {
+			a: 1
+		},
+		created: function () {
+			console.log('a is ' + this.a)
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="app">
+	<span v-once>This will never change: {{ msg }}</span>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg: 'yeah!!'
+		}
+	})
+</script>
+-->
+
+
+<!--
+<div id="app">
+	<p>Using mustaches: {{ rawHtml }}</p>
+	<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+</div>
+
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			rawHtml: '<span style="color: red">This should be red.</span>'
+		}
+	})
+</script>
+-->
+
+
+<!--
+<div id="app">
+	<div v-bind:id="dynamicId"></div>
+	<button v-bind:disabled="isButtonDisabled">Button</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data:{
+			dynamicId: 'hogehoge',
+			isButtonDisabled: 'aaa'
+		}
+	})
+</script>
+-->
+
+<!--
+テンプレート構文：ディレクティブ
+<div id="app">
+	<p v-if="seen">Now you see me</p>
+	<a v-bind:href="url">hogehoge</a>
+	<a v-on:click="doSomething">{{seen}}</a>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			seen: 1,
+			url: 'http://www.yahoo.co.jp'
+		},
+		methods: {
+			doSomething: function () {
+				this.seen = 0;
+				console.log(11);
+			}
+		}
+	})
+</script>
+-->
+
+
+<!--
+算出プロパティ
+プロパティなのに関数（関数の演算結果をプロパティの値として用いる）
+<div id="example">
+	<p>Original message: "{{ message }}"</p>
+	<p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+<script type="text/javascript">
+	vm = new Vue({
+		el: '#example',
+		data: {
+			message: 'Hello'
+		},
+		// 算出プロパティは依存関係にもとづきキャッシュされる
+		computed: {
+			reversedMessage: function () {
+				return this.message.split('').reverse().join('');	// リアクティブな依存のため更新される
+			},
+			// nowを呼び出してもキャッシュされるため更新されない
+			now: function () {
+				return Date.now()	//リアクティブな依存ではないため
+			}
+		}
+	})
+</script>
+-->
+
+<!--
+算出プロパティ vs 監視プロパティ
+<div id="demo">{{fullName}}</div>
+<script type="text/javascript">
+/*
+	vm = new Vue({
+		el: '#demo',
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar',
+			fullName: 'Foo Bar'
+		},
+		watch: {
+			firstName: function (val) {
+				this.fullName = val + ' ' + this.lastName
+			},
+			lastName: function (val) {
+				this.fullName = this.firstName + ' ' + val
+			}
+		}
+	})
+	vm = new Vue({
+		el: '#demo',
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar'
+		},
+		computed: {
+			fullName: function () {
+				return this.firstName + ' ' + this.lastNa
+			}
+		}
+	})
+*/
+/*
+	vm = new Vue({
+		el: '#demo',
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar'
+		},
+		computed: {
+			fullName: {
+				get: function () {
+					return this.firstName + ' ' + this.lastName
+				},
+				set: function (newValue) {
+					var names = newValue.split(' ');
+					console.log(names)
+					this.firstName = names[0]
+					this.lastName = names[names.length - 1]
+				}
+
+			}
+		}
+	})
+*/
+</script>
+-->
+
+<!--
+ウォッチャ
+<div id="watch-example">
+	<p>
+		Ask a yes/no question:
+		<input v-model="question">
+	</p>
+	<p>{{answer}}</p>
+</div>
+
+&lt;!&ndash; ajax ライブラリの豊富なエコシステムや、汎用的なユーティリティ	&ndash;&gt;
+&lt;!&ndash; メソッドがたくさんあるので、Vue のコアはそれらを再発明せずに		&ndash;&gt;
+&lt;!&ndash; 小さく保たれています。この結果として、慣れ親しんでいるものだけを	&ndash;&gt;
+&lt;!&ndash; 使えるような自由さを Vue は持ち合わせています。			&ndash;&gt;
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script type="text/javascript">
+	var watchExampleVM = new Vue({
+		el: '#watch-example',
+		data: {
+			question: '',
+			answer: 'I cannot give you an answer until you ask a question!'
+		},
+		watch: {
+			// この関数は question が変わるごとに実行されます。
+			question: function (newQuestion, oldQuestion) {
+				this.answer = 'Waiting for you to stop typing...'
+				this.debouncedGetAnswer()
+				
+			}
+		},
+		created: function () {
+			// _.debounce は特にコストの高い処理の実行を制御するための
+			// lodash の関数です。この場合は、どのくらい頻繁に yesno.wtf/api
+			// へのアクセスすべきかを制限するために、ユーザーの入力が完全に
+			// 終わるのを待ってから ajax リクエストを実行しています。
+			// _.debounce (とその親戚である _.throttle )  についての詳細は
+			// https://lodash.com/docs#debounce を見てください。
+			this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+		},
+		methods: {
+			getAnswer: function () {
+				if (this.question.indexOf('?') === -1) {
+					this.answer = 'Questions usually contain a question mark. ;-)'
+					return
+				}
+				this.answer = 'Thinking...'
+				var vm = this
+				axios.get('https://yesno.wtf/api')
+					.then(function (response) {
+						vm.answer = _.capitalize(response.data.answer)
+					})
+					.catch(function (error) {
+						vm.answer = 'Error! Could not reach the API. ' + error
+					})
+			}
+
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="app">
+	<div class="hoge" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+	<div v-bind:class="classObject"></div>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:'#app',
+		data: {
+			isActive: true,
+			hasError: null,
+		},
+		computed: {
+			classObject: function() {
+				return {
+					active: this.isActive && !this.hasError,
+					'text-danger': this.hasError && this.hasError.type === 'fatal'
+				}
+			}
+
+		}
+	})
+</script>
+-->
+
+<!--
+配列構文
+<div id="app">
+	<div v-bind:class="[{active: isActive}, errorClass]"></div>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			isActive: true,
+			activeClass: 'active',
+			errorClass: 'text-danger'
+		}
+	})
+</script>
+-->
+
+
+<!--
+コンポーネントにおいて
+<div id="app">
+&lt;!&ndash;
+	<my-component class="baz boo"></my-component>
+&ndash;&gt;
+	<my-component v-bind:class="{ active: isActive }"></my-component>
+</div>
+<script type="text/javascript">
+	Vue.component('my-component', {template: '<p class="foo bar">Hi</p>'})
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			isActive: true
+		}
+	})
+</script>
+-->
+
+
+<!--
+インラインスタイルのバインディング
+#オブジェクト構文
+<div id="app">
+	<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">aiueo</div>
+	<div v-bind:style="styleObject">aiueo</div>
+	<div v-bind:style="[baseStyles, overridingStyles]">aiueo</div>
+	<div v-bind:style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">aiueo</div>
+</div>
+
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			activeColor: 'red',
+			fontSize: 30,
+			styleObject: {
+				color: 'red',
+				fontSize: '50px'
+			},
+			baseStyles: {
+				color: 'blue',
+				fontSize: '50px'
+			},
+			overridingStyles: {
+				fontWeight: 'bold'
+			}
+		}
+	})
+</script>
+-->
+
+
+<!--
+条件付きレンダリング
+<div id="app">
+	<h1 v-if="ok">Yes</h1>
+	<h1 v-else>No</h1>
+
+	<template v-if="ok">
+		<h1>Title</h1>
+		<p>Paragraph 1</p>
+		<p>Paragraph 2</p>
+	</template>
+
+	<div v-if="Math.random() > 0.5">
+		Now you see me
+	</div>
+	<div v-else>
+		Now you don't
+	</div>
+
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			ok: false
+		}
+	})
+</script>
+-->
+
+<!--
+#key による再利用可能な要素の制御
+<div id="app">
+	<template v-if="loginType === 'username'">
+		<label>user name</label>
+		<input placeholder="Enter your username" key="username-input">
+		aaaa
+	</template>
+	<template v-else>
+		<label>Email</label>
+		<input name="useremail" placeholder="Enter your email address" key="email-input">
+	</template>
+	<button v-on:click="toggleLoginType">Toggle</button>
+
+	<h1 v-show="ok">Hello!</h1>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			loginType: 'username',
+			ok: true
+		},
+		methods: {
+			toggleLoginType: function () {
+				if(this.loginType === 'username'){
+					this.loginType = 'email'
+					this.ok = false;
+				}else{
+					this.loginType = 'username'
+					this.ok = true;
+				}
+			}
+		}
+	})
+</script>
+-->
+
+
+<!--
+リストレンダリング
+v-for で配列に要素をマッピングする
+
+<ul id="example-01">
+	<li v-for="item in items">
+		{{item.message}}
+	</li>
+</ul>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#example-01',
+		data: {
+			items: [
+				{message: 'Foo'},
+				{message: 'Bar'}
+			]
+		}
+	})
+</script>
+
+
+<ul id="example-02">
+	<li v-for="(item, index) in items">
+		{{ parentMessage }} - {{ index }} - {{ item.message }}
+	</li>
+</ul>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#example-02',
+		data: {
+			parentMessage: 'Parent',
+			items: [
+				{message: 'Foo'},
+				{message: 'Bar'}
+			]
+		}
+	})
+</script>
+-->
+
+
+<!--
+<ul id="v-for-object">
+	<li v-for="(value, key, index) in object">
+		{{ index }} : {{ key }} : {{ value }}
+	</li>
+</ul>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#v-for-object',
+		data: {
+			object: {
+				firstName: 'John',
+				lastNmae: 'Doe',
+				age: 30
+			}
+		}
+	})
+</script>
+-->
+
+
+<!--
+<ul id="app">
+	<li v-for="n in evenNumbers">{{n}}</li>
+</ul>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			numbers: [1,2,3,4,5]
+		},
+		computed: {
+			evenNumbers: function() {
+				return this.numbers.filter(function (number) {
+					return number % 2 === 0
+				})
+			}
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="app">
+	<button v-on:click="counter += 1">Add 1</button>
+	<p>The button above has been clicked {{counter}} items.</p>
+
+	<button v-on:click="greet">Greet</button>
+
+	<button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			counter: 8,
+
+			name: 'Vue.js'
+		},
+		methods: {
+			greet: function (event) {
+				alert('Hello ' + this.name + '!')
+				if(event){
+					alert(event.target.tagName)
+				}
+			},
+			warn: function (message, event) {
+				// event: オリジナルのDOMイベント
+				if(event) event.preventDefault()
+				alert(message)
+			}
+		}
+	})
+
+	vm.greet()
+</script>
+-->
+
+
+<!--
+<div id="app">
+&lt;!&ndash;
+	<input v-model="message" placeholder="edit me">
+	<p>Message is {{message}}</p>
+&ndash;&gt;
+&lt;!&ndash;
+	<span>Multiline message is:</span>
+	<p style="white-space: pre-line;">{{ message }}</p>
+	<br>
+	<textarea v-model="message" palceholder="add multiple lines"></textarea>
+&ndash;&gt;
+&lt;!&ndash;
+	<input type="checkbox" id="checkbox" v-model="checked">
+	<label for="checkbox">{{checked}}</label>
+&ndash;&gt;
+&lt;!&ndash;
+	<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+	<label for="jack">Jack</label>
+	<input type="checkbox" id="john" value="John" v-model="checkedNames">
+	<label for="john">John</label>
+	<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+	<label for="mike">Mike</label>
+	<br>
+	<span>Checked names: {{ checkedNames }} </span>
+&ndash;&gt;
+
+&lt;!&ndash;
+	<input type="radio" id="one" value="One" v-model="picked">
+	<label for="one">One</label>
+	<input type="radio" id="two" value="Two" v-model="picked">
+	<label for="two">Two</label>
+	<br>
+	<span>Picked: {{ picked }}</span>
+&ndash;&gt;
+
+	<select v-model="selected">
+		<option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+	</select>
+	<span>Selected: {{ selected }}</span>
+
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:'#app',
+		data: {
+			message: '',
+			checked: '',
+			checkedNames: [],
+			picked: '',
+			selected: 'B',
+			options: [
+				{text: 'One', value: 'A'},
+				{text: 'Two', value: 'B'},
+				{text: 'Three', value: 'C'},
+			]
+		}
+	})
+</script>
+-->
+
+<!--
+<div id="app">
+	<input type="radio" v-model="picked" v-bind:value="a">
+	<input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+	<select v-model="selected">
+		<option v-bind:value="{ number: 123 }">123</option>
+	</select>
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			picked: 'a',
+			a: 'radiodayo',
+			toggle: 'yes',
+			selected: ''
+		}
+	})
+</script>
+-->
+
+
+<!--
+<div id="components-demo">
+	<button-counter></button-counter>
+</div>
+<script type="text/javascript">
+	Vue.component('button-counter', {
+		data: function () {
+			return {
+				count: 0
+			}
+		},
+		template: '<button v-on:click="count++">you clicked me {{count}} times.</button>'
+	})
+
+	var vm = new Vue({
+		el: '#components-demo'
+	})
+</script>
+-->
+
+<div id="app">
+	<div :style="{ fontSize: postFontSize + 'em'}">
+		<blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += $event"></blog-post>
+	</div>
+</div>
+
+<script type="text/javascript">
+	Vue.component('blog-post', {
+		props: ['post'],
+		template: '<div class="blog-post">\n' +
+			'  <h3>{{ post.title }}</h3>\n' +
+			'  <button v-on:click="$emit(\'enlarge-text\', 0.2)">Enlarge text</button>\n' +
+			'  <div v-html="post.content"></div>\n' +
+			'</div>'
+	})
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			posts: [
+				{ id: 1, title: 'My journey with Vue', content: 'content1content1content1content1'},
+				{ id: 2, title: 'Blogging with Vue', content: 'content2content2content2content2'},
+				{ id: 3, title: 'Why Vue is so fun', content: 'content3content3content3content3'},
+			],
+			postFontSize: 1
+		}
+	})
+</script>
+
+
+
+</body>
+</html>
