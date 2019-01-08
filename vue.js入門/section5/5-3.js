@@ -17,6 +17,7 @@ Vue.directive('fallback-image', {
 	}
 })
 
+//
 var vm = new Vue({
 	el: '#app',
 	data: function () {
