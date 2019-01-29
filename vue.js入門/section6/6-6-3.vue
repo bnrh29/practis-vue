@@ -1,13 +1,16 @@
 <template>
-	
+	<p :class="$style.message">こんにちは！</p>
 </template>
 
 <script>
 	export default {
-		name: "6-6-3"
+		created () {
+			// eslint-disable-next-line no-console
+			console.log('css modules: $style', this.$style)
+		}
 	}
 </script>
 
-<style scoped>
-
+<style module>
+.message { color: #42b983; }
 </style>
